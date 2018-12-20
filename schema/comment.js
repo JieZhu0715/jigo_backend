@@ -6,7 +6,7 @@ let plugin = require('../utils/plugin');
 
 const commentSchema = new Schema({
 	// 评论所在的文章 id
-	article_id: { type: mongoose.Schema.Types.ObjectId, required: true },
+	article_id: { type: Schema.Types.ObjectId, required: true },
 
 	// content
 	content: { type: String, required: true, validate: /\S+/ },
@@ -18,7 +18,7 @@ const commentSchema = new Schema({
 	likes: { type: Number, default: 0 },
 
 	// 用户 id
-	user_id: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
+	user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 
 	// 状态 => 0 待审核 / 1 通过正常 / -1 已删除 / -2 垃圾评论
 	state: { type: Number, default: 1 },

@@ -12,7 +12,7 @@ const itemSchema = new Schema(
         // type => 1: common item
         type: { type: Number, default: 1 },
         price: { type: Number, default: -1 },
-        comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment', required: true }],
+        comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', required: true }],
 	    like_users: [
 		{
 			id: { type: mongoose.Schema.Types.ObjectId },
