@@ -15,7 +15,7 @@ const itemSchema = new Schema(
         comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', required: true }],
 	    like_users: [
 		{
-			id: { type: mongoose.Schema.Types.ObjectId },
+			id: { type: Schema.Types.ObjectId },
 			name: { type: String, required: true, default: '' },
 			// type 0: poster 1：others
 			type: { type: Number, default: 1 },
