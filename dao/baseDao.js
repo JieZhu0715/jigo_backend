@@ -55,7 +55,7 @@ class BaseDao {
      */
     findAll(condition, constraints) {
         return new Promise((resolve, reject) => {
-            this.Model.findAll(condition, constraints ? constraints : null, (error, results) => {
+            this.Model.find(condition, constraints ? constraints : null, (error, results) => {
                 if (error) {
                     console.log('findAll error--> ', error);
                     reject(error);
