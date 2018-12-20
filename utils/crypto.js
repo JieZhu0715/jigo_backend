@@ -1,4 +1,4 @@
-import crypto from 'crypto';
+let crypto = require('crypto');
 
 module.exports = {
 	MD5_SUFFIX: 'jzhuRocks',

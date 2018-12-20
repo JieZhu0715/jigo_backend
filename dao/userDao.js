@@ -7,4 +7,4 @@ class UserDao extends BaseDao {
     }
 }
 
-export default UserDao;
+module.exports = UserDao;
