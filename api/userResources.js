@@ -1,6 +1,6 @@
 const express = require("express");
 const userResources = express.Router();
-const UserDao = require("../dao/U")
+const UserDao = require("../dao/userDao")
 const { MD5_SUFFIX, responseClient, md5 } = require('../utils/crypto')
 const User = require('../schema/user')
 
