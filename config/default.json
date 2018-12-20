@@ -1,8 +1,8 @@
 {
     "mongodb": {
-      "user": "",
-      "pass": "",
-      "host": "localhost",
+      "user": "jzhu",
+      "pass": "R0ckets!",
+      "host": "ds115124.mlab.com:15124/heroku_8z6k8fn6",
       "port": "27017",
       "replicaSet": {
         "name": "",

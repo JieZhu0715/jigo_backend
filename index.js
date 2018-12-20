@@ -5,6 +5,7 @@ const app =express()
 
 // Add Resources here
 const items = require('./api/itemResources')
+const users = require('./api/userResources')
 
 // CORS on ExpressJS, Add Access-Control-Allow-Origin
 app.use(function(req, res, next) {
@@ -14,6 +15,7 @@ app.use(function(req, res, next) {
   });
 
 app.use('/items', items)
+app.use('/users', users)
 if (serverConfig.get('heroku'))
 {
     console.log('server listening on' + process.env.PORT)

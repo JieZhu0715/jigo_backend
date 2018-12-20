@@ -1,11 +1,24 @@
 let { Schema } = require('mongoose');
 let { mongoClient } = require('../utils/mongo');
+let crypto = require('crypto');
+let autoIncrement = require('mongoose-auto-increment');
+let plugin = require('../utils/plugin');
 
 const userSchema = new Schema(
     {
-        name: {type: String},
-        pwd: {type: String},
-        email: {type: String, default: ''}
+        name: {type: String, required: true, default: ''},
+        email: { type: String, required: true, validate: /\w[-\w.+]*@([A-Za-z0-9][-A-Za-z0-9]+\.)+[A-Za-z]{2,14}/ },
+        img_url: { type: String, default: '' },
+        introduce: { type: String, default: '' },
+        avatar: { type: String, default: 'user' },
+        password: {
+            type: String,
+            required: true,
+            default: crypto
+                .createHash('md5')
+                .update('root')
+                .digest('hex'),
+        },
     },
     {
         runSettersOnQuery: true
@@ -15,32 +28,14 @@ const userSchema = new Schema(
 /**
  * add plugin
  */
-function plug() {
-    let plugin = require('../utils/plugin');
-    userSchema.plugin(plugin.createdAt);
-    userSchema.plugin(plugin.updatedAt);
-};
-plug()
+userSchema.plugin(plugin.createdAt);
+userSchema.plugin(plugin.updatedAt);
+userSchema.plugin(autoIncrement.plugin, {
+    model: 'User',
+    field: 'id',
+    startAt: 1,
+    incrementBy: 1,
+});
 
-/**
- * 参数一要求与 Model 名称一致
- * 参数二为 Schema
- * 参数三为映射到 MongoDB 的 Collection 名
- */
-let User = mongoClient.model('User', userSchema, 'user');
-
+let User = mongoClient.model('User', userSchema);
 module.exports = User;
-
-
-
-// UserModel.prototype.save = function(callback) {
-// var md5 = crypto.createHash('md5'),
-//     email_MD5 = md5.update(this.email.toLowerCase()).digest('hex'),
-//     head = "http://www.gravatar.com/avatar/" + email_MD5 + "?s=48";
-
-// var user = {
-//     name: this.name,
-//     password: this.password,
-//     email: this.email,
-//     head: head
-// };

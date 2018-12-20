@@ -87,9 +87,9 @@ itemResources.get('/all', function(req, res) {
 
 itemResources.post("/add", function(req, res) {
   let name = req.query.name
-  let descrption = req.query.descrption
+  let description = req.query.description
   let created_by = req.query.created_by
-  itemDao.create({ name: name, descrption: descrption, created_by: created_by }).then(
+  itemDao.create({ name: name, description: description, created_by: created_by }).then(
     function(result) {
       console.log("New item added ")
       res.json({code: 200, msg: 'New item added: ', data: result})

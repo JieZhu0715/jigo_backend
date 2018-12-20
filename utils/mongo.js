@@ -63,7 +63,6 @@ function getMongoUri() {
         mongoUri += `${mongodbConfig.get('host')}:${mongodbConfig.get('port')}`;
     }
     mongoUri += `/${dbName}`;
-
     return mongoUri;
 }
 
