@@ -7,6 +7,7 @@
 let mongoose = require('mongoose');
 let serverConfig = require('config')
 let mongodbConfig = serverConfig.get('mongodb');
+let autoIncrement = require('mongoose-auto-increment')
 
 /**
  * debug 
@@ -90,6 +91,9 @@ mongoClient.on('error', function (err) {
 mongoClient.on('disconnected', function () {
     console.log('Mongoose disconnected');
 });
+
+// 自增 ID 初始化
+autoIncrement.initialize(mongoClient);
 
 
 /**
