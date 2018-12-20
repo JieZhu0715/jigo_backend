@@ -1,0 +1,23 @@
+{
+  "name": "jigo.com",
+  "version": "1.0.0",
+  "description": "jigo.com backend express+mongoose",
+  "main": "test.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "express",
+    "mongoose"
+  ],
+  "author": "Jie Zhu",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "config": "^3.0.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.4.0",
+    "multer": "^1.4.1"
+  }
+}
