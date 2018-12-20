@@ -22,5 +22,6 @@
         ]
       },
       "db": "test_2"
-    }
+    },
+    "heroku": true
   }

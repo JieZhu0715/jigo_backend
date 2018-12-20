@@ -5,7 +5,8 @@
  */
 
 let mongoose = require('mongoose');
-let mongodbConfig = require('config').get('mongodb');
+let serverConfig = require('config')
+let mongodbConfig = serverConfig.get('mongodb');
 
 /**
  * debug 
@@ -45,6 +46,10 @@ function getMongoOptions() {
  * @returns {string}
  */
 function getMongoUri() {
+    if (serverConfig.get('heroku'))
+    {
+        return process.env.PROD_MONGODB
+    }
     let mongoUri = 'mongodb://';
     let dbName = mongodbConfig.get('db');
     let replicaSet = mongodbConfig.get('replicaSet');
