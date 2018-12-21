@@ -29,12 +29,12 @@ userResources.post('/login', (req, res) => {
             }
         }
     ).catch(error => {
+        console.log(error)
         responseClient(res);
     })
 })
 
 userResources.post('/register', (req, res) => {
-    console.log(req.body)
     let { name, password, email, introduce, img_url } = req.body;
 	if (!email) {
 		responseClient(res, 400, 2, '用户邮箱不可为空');
