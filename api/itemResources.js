@@ -89,19 +89,28 @@ itemResources.post("/add", function(req, res) {
   let name = req.query.name
   let description = req.query.description
   let created_by = req.query.created_by
-  itemDao.create({ name: name, description: description, created_by: created_by }).then(
+  let image_url = req.query.image_url
+  let price = req.query.price
+  itemDao.create({ 
+    name: name,
+    description: description, 
+    created_by: created_by,
+    image_url: image_url, 
+    price: price
+  }).then(
     function(result) {
       console.log("New item added ")
       res.json({code: 200, msg: 'New item added: ', data: result})
       return
-    }, function(error) {
+    }, 
+    function(error) {
       console.log("Add new item failed: " + error)
       res.end({code: 700, msg:'Query error ' + error})
     }
   )
 })
-  
-  
+ 
+
 itemResources.all('*', function(req, res, next){
   next();
 })
