@@ -34,6 +34,24 @@ userResources.post('/login', (req, res) => {
     })
 })
 
+userResources.post('/logout', (req, res) => {
+    if (req.session.userInfo) {
+		req.session.userInfo = null; // delte session
+		responseClient(res, 200, 0, '登出成功！！');
+	} else {
+		responseClient(res, 200, 1, '您还没登录！！！');
+	} 
+})
+
+exports.logout = (req, res) => {
+	if (req.session.userInfo) {
+		req.session.userInfo = null; // 删除session
+		responseClient(res, 200, 0, '登出成功！！');
+	} else {
+		responseClient(res, 200, 1, '您还没登录！！！');
+	}
+};
+
 userResources.post('/register', (req, res) => {
     let { name, password, email, introduce, img_url } = req.body;
 	if (!email) {
