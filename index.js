@@ -1,4 +1,5 @@
 const express = require('express')
+var bodyParser = require('body-parser')
 let serverConfig = require('config')
 
 const app =express()
@@ -14,8 +15,10 @@ app.use(function(req, res, next) {
     next();
   });
 
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use('/items', items)
 app.use('/users', users)
+
 if (serverConfig.get('heroku'))
 {
     console.log('server listening on' + process.env.PORT)
