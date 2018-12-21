@@ -1,6 +1,9 @@
 const express = require('express')
-var bodyParser = require('body-parser')
-let serverConfig = require('config')
+const bodyParser = require('body-parser')
+const serverConfig = require('config')
+const session = require('express-session');
+const cookieParser = require('cookie-parser');
+
 
 const app =express()
 
@@ -16,6 +19,16 @@ app.use(function(req, res, next) {
   });
 
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser('jigo_node_cookie'));
+app.use(
+	session({
+		secret: 'jigo_node_cookie',
+		// name: 'session_id', # 在浏览器中生成cookie的名称key，默认是connect.sid
+		resave: true,
+		saveUninitialized: true,
+		cookie: { maxAge: 60 * 1000 * 30, httpOnly: true }, //过期时间
+	}),
+);
 app.use('/items', items)
 app.use('/users', users)
 
