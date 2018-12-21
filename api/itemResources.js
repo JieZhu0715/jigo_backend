@@ -58,33 +58,6 @@ itemResources.get('/all', function(req, res) {
 })
 
 
-
-// itemResources.get('/all', function(req, res) {
-//     itemDao.findAll({name: 'test_name'}, function(error, doc) {
-//       if (error)
-//       {
-//         console.log("Item find error" + error)
-//         res.json({code: 700, msg:'Query error ' + error})
-//         return
-//       }
-//       else 
-//       {
-//         if (!doc)
-//         {
-//           res.json({code: 600,  msg: 'no item found', data: doc})
-//           return
-//         }
-//         else
-//         {
-//           res.json({code: 200, msg: '', data: doc})
-//           return
-//         }
-//       }
-//     })
-// })
-
-
-
 itemResources.post("/add", function(req, res) {
   let name = req.query.name
   let description = req.query.description

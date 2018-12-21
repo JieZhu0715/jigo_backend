@@ -33,8 +33,9 @@ userResources.post('/login', (req, res) => {
     })
 })
 
-userResources.post('/rigister', (req, res) => {
-    let { name, password, email, introduce, type } = req.body;
+userResources.post('/register', (req, res) => {
+    console.log(req)
+    let { name, password, email, introduce, img_url } = req.body;
 	if (!email) {
 		responseClient(res, 400, 2, '用户邮箱不可为空');
 		return;
@@ -59,7 +60,7 @@ userResources.post('/rigister', (req, res) => {
                 email,
 				name,
 				password: md5(password + MD5_SUFFIX),
-				type,
+				img_url,
 				introduce,
             }); 
             userDao.create(user).then(
