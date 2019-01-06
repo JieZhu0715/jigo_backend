@@ -5,11 +5,13 @@ const session = require('express-session');
 const cookieParser = require('cookie-parser');
 
 
-const app =express()
+const app = express()
 
 // Add Resources here
 const items = require('./api/itemResources')
 const users = require('./api/userResources')
+const orders = require('./api/orderResources')
+const requests = require('./api/requestResources')
 
 // CORS on ExpressJS, Add Access-Control-Allow-Origin
 app.use(function(req, res, next) {
@@ -18,6 +20,7 @@ app.use(function(req, res, next) {
     next();
   });
 
+app.use(bodyParser.json()); 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser('jigo_node_cookie'));
 app.use(
@@ -31,9 +34,15 @@ app.use(
 );
 app.use('/items', items)
 app.use('/users', users)
+app.use('/orders', orders)
+app.use('/requests', requests)
 
 if (serverConfig.get('heroku'))
 {
     console.log('server listening on' + process.env.PORT)
     app.listen(process.env.PORT)
+}
+else
+{
+    app.listen(8889)
 }

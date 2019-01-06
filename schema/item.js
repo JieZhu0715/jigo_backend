@@ -6,12 +6,13 @@ let plugin = require('../utils/plugin');
 const itemSchema = new Schema(
     {
         name: String,
+        created_by: { type: String }, 
         description: { type: String, default: '' },
-        created_by: { type: String, lowercase: true }, // lowercase needs setters
-        img_url: { type: String, default: 'https://upload-images.jianshu.io/upload_images/12890819-80fa7517ab3f2783.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240' },
+        content: { type: String, default: ''},
+        image_url: { type: String, default: 'https://upload-images.jianshu.io/upload_images/12890819-80fa7517ab3f2783.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240' },
         // type => 1: common item
         type: { type: Number, default: 1 },
-        price: { type: Number, default: -1 },
+        price: { type: String, default: -1 },
         comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', required: true }],
 	    like_users: [
 		{
@@ -41,12 +42,6 @@ const itemSchema = new Schema(
  */
 itemSchema.plugin(plugin.createdAt);
 itemSchema.plugin(plugin.updatedAt);
-itemSchema.plugin(autoIncrement.plugin, {
-	model: 'Item',
-	field: 'id',
-	startAt: 1,
-	incrementBy: 1,
-});
 
 
 /**

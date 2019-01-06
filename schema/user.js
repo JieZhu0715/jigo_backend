@@ -19,6 +19,8 @@ const userSchema = new Schema(
                 .update('root')
                 .digest('hex'),
         },
+        // use_type => 0 normal / 1 admin / -1 deleted / -2 blocked
+        user_type: { type: Number, default: 0}
     },
     {
         runSettersOnQuery: true
@@ -30,12 +32,6 @@ const userSchema = new Schema(
  */
 userSchema.plugin(plugin.createdAt);
 userSchema.plugin(plugin.updatedAt);
-userSchema.plugin(autoIncrement.plugin, {
-    model: 'User',
-    field: 'id',
-    startAt: 1,
-    incrementBy: 1,
-});
 
 let User = mongoClient.model('User', userSchema);
 module.exports = User;

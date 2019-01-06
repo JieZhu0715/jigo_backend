@@ -6,14 +6,14 @@ const User = require('../schema/user')
 
 const userDao = new UserDao()
 
-userResources.post('/login', (req, res) => {
+userResources.post('/currentUser', (req, res) => {
     let { password, email } = req.body;
 	if (!email) {
-		responseClient(res, 400, 2, '用户邮箱不可为空');
+		responseClient(res, 400, 2, '用户邮箱不可为空', req);
 		return;
 	}
 	if (!password) {
-		responseClient(res, 400, 2, '密码不可为空');
+		responseClient(res, 400, 2, '密码不可为空', req);
         return;
     }
     
@@ -30,6 +30,55 @@ userResources.post('/login', (req, res) => {
         }
     ).catch(error => {
         console.log(error)
+        responseClient(res);
+    })
+})
+
+userResources.get('/findUser', (req, res) => {
+    let { _id } = req.query; 
+    if ( !_id )
+    {
+        responseClient(res, 400, 2, '_id is null', req);
+		return; 
+    }
+    userDao.findOne({ _id }).then(
+        userInfo => {
+            if (userInfo) 
+            {
+				responseClient(res, 200, 0, '', userInfo);
+            }
+            else{
+                responseClient(res, 400, 1, 'No user found');
+            }
+        }
+    ).catch(error => {
+        responseClient(res);
+    })
+})
+
+userResources.post('/login', (req, res) => {
+    let { password, email } = req.body;
+	if (!email) {
+		responseClient(res, 400, 2, '用户邮箱不可为空', req);
+		return;
+	}
+	if (!password) {
+		responseClient(res, 400, 2, '密码不可为空', req);
+        return;
+    }
+    
+    userDao.findOne({ email, password: md5(password + MD5_SUFFIX),}).then(
+        userInfo => {
+            if (userInfo) 
+            {
+                req.session.userInfo = userInfo;
+				responseClient(res, 200, 0, '登录成功', userInfo);
+            }
+            else{
+                responseClient(res, 400, 1, '用户名或者密码错误');
+            }
+        }
+    ).catch(error => {
         responseClient(res);
     })
 })
@@ -87,6 +136,10 @@ userResources.post('/register', (req, res) => {
                     return;
                 }
             )
+            .catch(error => {
+                responseClient(res);
+                return;
+            })
         }
     ).catch(error => {
         responseClient(res);
