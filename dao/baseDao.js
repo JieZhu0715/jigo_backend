@@ -67,6 +67,33 @@ class BaseDao {
         })
     }
 
+        /**
+     *
+     * @param condition 
+     * @param constraints
+     * @param options 
+     * {
+        skip:0, // Starting Row
+        limit:10, // Ending Row
+        sort:{
+            dateAdded: -1 //Sort by Date Added DESC
+        }
+     * @returns {Promise}
+     */
+    findAll(condition, constraints, options) {
+        return new Promise((resolve, reject) => {
+            this.Model.find(condition, constraints ? constraints : null, options, (error, results) => {
+                if (error) {
+                    console.log('findAll error--> ', error);
+                    reject(error);
+                } else {
+                    console.log('findAll results--> ', results);
+                    resolve(results);
+                }
+            });
+        })
+    }
+
     /**
      *
      * @param condition 

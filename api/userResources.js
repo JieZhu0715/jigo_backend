@@ -34,6 +34,43 @@ userResources.post('/currentUser', (req, res) => {
     })
 })
 
+userResources.post('/authorizeUser', (req, res) => {
+    let { _id } = req.body;
+    if ( !_id )
+    {
+        responseClient(res, 400, 2, '_id is null', req);
+		return; 
+    }
+    userDao.findOne({ _id }).then(
+        userInfo => {
+            if (userInfo) 
+            {   
+                userInfo.user_type = 1;
+                userDao.save(userInfo)
+                .then(userInfo => {
+                    if (userInfo)
+                    {
+                        responseClient(res, 200, 0, '', userInfo);
+                    }
+                    else
+                    {
+                        responseClient(res, 400, 1, 'Failed to authorize user'); 
+                    }
+                })
+                .catch(error => {
+                    responseClient(res); 
+                })
+				responseClient(res, 200, 0, '', userInfo);
+            }
+            else{
+                responseClient(res, 400, 1, 'No user found');
+            }
+        }
+    ).catch(error => {
+        responseClient(res);
+    })
+})
+
 userResources.get('/findUser', (req, res) => {
     let { _id } = req.query; 
     if ( !_id )

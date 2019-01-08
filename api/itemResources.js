@@ -63,7 +63,7 @@ itemResources.get("/findByName", function(req, res) {
 
 
 itemResources.get('/all', function(req, res) {
-  itemDao.findAll({}).then(function(result) {
+  itemDao.findAll({}, null, { sort: { updatedAt: -1 } }).then(function(result) {
     if (!result)
     {
       res.json({code: 600,  msg: 'No item found', data: result})
