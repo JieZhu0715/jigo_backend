@@ -12,6 +12,7 @@ const itemSchema = new Schema(
         image_url: { type: String, default: 'https://upload-images.jianshu.io/upload_images/12890819-80fa7517ab3f2783.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240' },
         // type => 1: common item
         type: { type: Number, default: 1 },
+        tag: {type: String },
         price: { type: String, default: -1 },
         comments: [{ type: Schema.Types.ObjectId, ref: 'Comment', required: true }],
 	    like_users: [

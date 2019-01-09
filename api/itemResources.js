@@ -86,13 +86,15 @@ itemResources.post("/add", function(req, res) {
   let created_by = req.body.created_by
   let image_url = req.body.image_url
   let price = req.body.price
+  let tag = req.body.tag
   itemDao.create({ 
-    name: name,
-    description: description, 
-    content: content,
-    created_by: created_by,
-    image_url: image_url, 
-    price: price
+    name,
+    description, 
+    content,
+    created_by,
+    image_url,
+    price,
+    tag
   }).then(
     function(result) {
       res.json({code: 200, msg: 'New item added: ', data: result})
