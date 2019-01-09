@@ -42,7 +42,7 @@ orderResources.get('/findUserOrders', (req, res) => {
 })
 
 orderResources.post('/resolveOrder', (req, res) => {
-    let { order_id } = req.body.order_id
+    let { order_id } = req.body
     if( !order_id )
     {
       responseClient(res, 400, 2, 'order_id is null', req);
