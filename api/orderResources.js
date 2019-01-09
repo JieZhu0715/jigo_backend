@@ -66,7 +66,7 @@ orderResources.post('/resolveOrder', (req, res) => {
 })
 
 orderResources.get('/all', (req, res) => {
-  orderDao.findAllAndPopulate({}, null, 'item_id', 'user_id').then(function(result) {
+  orderDao.findAllAndPopulateExtra({}, null, 'item_id', 'user_id').then(function(result) {
     if (!result)
     {
       responseClient(res, 600, 1, "No order found")

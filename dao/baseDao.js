@@ -123,7 +123,7 @@ class BaseDao {
      * @param constraints
      * @returns {Promise}
      */
-    findAllAndPopulate(condition, constraints, populate_reference, populate_reference2) {
+    findAllAndPopulateExtra(condition, constraints, populate_reference, populate_reference2) {
         return new Promise((resolve, reject) => {
             this.Model.find(condition, constraints ? constraints : null)
             .populate(populate_reference)
