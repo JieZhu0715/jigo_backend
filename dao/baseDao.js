@@ -117,6 +117,30 @@ class BaseDao {
     }
 
 
+    /**
+     *
+     * @param condition 
+     * @param constraints
+     * @returns {Promise}
+     */
+    findAllAndPopulate(condition, constraints, populate_reference, populate_reference2) {
+        return new Promise((resolve, reject) => {
+            this.Model.find(condition, constraints ? constraints : null)
+            .populate(populate_reference)
+            .populate(populate_reference2)
+            .exec(function (error, results) {
+                if (error) {
+                    console.log('findAll error--> ', error);
+                    reject(error);
+                } else {
+                    console.log('findAll results--> ', results);
+                    resolve(results);
+                }
+            });
+        });
+    }
+
+
 
     /**
      * @param condition

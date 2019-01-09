@@ -11,7 +11,7 @@ const orderSchema = new Schema({
     // Quantity
     quantity: {type: Number, default: 0},
 
-	// 状态 => 0 ready / 1 processed / -1 deleted / -2 fake
+	// 状态 => 0 ready / 1 finished / -1 deleted / -2 deleted
     status: { type: Number, default: 0 },
     
     email: { type: String }, 

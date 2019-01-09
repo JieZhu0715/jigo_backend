@@ -41,8 +41,32 @@ orderResources.get('/findUserOrders', (req, res) => {
     })
 })
 
+orderResources.post('/resolveOrder', (req, res) => {
+    let { order_id } = req.body.order_id
+    if( !order_id )
+    {
+      responseClient(res, 400, 2, 'order_id is null', req);
+      return;  
+    }
+    orderDao.findOne({ _id: order_id }).then(
+      order => {
+        order.status = 1;
+        orderDao.save(order).then(
+          result => {
+            responseClient(res, 200, 0, '', result) 
+          }
+        ).catch(
+          error => {
+            responseClient(res) 
+          }
+        )
+      }
+    ).catch(error => {
+      responseClient(res); })
+})
+
 orderResources.get('/all', (req, res) => {
-  orderDao.findAll({}).then(function(result) {
+  orderDao.findAllAndPopulate({}, null, 'item_id', 'user_id').then(function(result) {
     if (!result)
     {
       responseClient(res, 600, 1, "No order found")
