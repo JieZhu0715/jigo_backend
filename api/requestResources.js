@@ -5,14 +5,29 @@ const { responseClient } = require('../utils/crypto')
 
 const requestDao = new RequestDao()
 
+requestResources.get("/all", function(req, res) {
+    requestDao.findAll({}).then(function(result) {
+        if (!result)
+        {
+          responseClient(res, 600, 1, "No request found")
+        }
+        else
+        {
+          responseClient(res, 200, 0, '', result)
+        }
+      }, function(error) {
+        responseClient(res)
+      })
+})
+
 requestResources.post("/add", function(req, res) {
     let user_id = req.body.user_id
     let description = req.body.description
     let reference = req.body.reference
+    let quantity = req.body.quantity
     
-    requestDao.create({ user_id, description, reference }).then(
+    requestDao.create({ user_id, description, reference, quantity }).then(
       function(result) {
-        console.log("New request added ")
         responseClient(res, 200, 0, 'New request added', result);
       }, 
       function(error) {

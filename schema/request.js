@@ -1,6 +1,5 @@
 let { Schema } = require('mongoose');
 let { mongoClient } = require('../utils/mongo');
-let autoIncrement = require('mongoose-auto-increment');
 let plugin = require('../utils/plugin');
 
 const requestSchema = new Schema({
@@ -11,7 +10,9 @@ const requestSchema = new Schema({
     description: { type: String, required: true, validate: /\S+/ },
     
     // reference
-    reference: { type: String, required: true, validate: /\S+/ }, 
+    reference: { type: String, validate: /\S+/ }, 
+
+    quantity: { type: Number },
 
 	// 状态 => 0 ready / 1 processed / -1 deleted / -2 fake
 	status: { type: Number, default: 0 },

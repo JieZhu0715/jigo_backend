@@ -11,7 +11,6 @@ orderResources.post("/add", function(req, res) {
     let quantity = req.body.quantity
     orderDao.create({ item_id, user_id, quantity }).then(
       function(result) {
-        console.log("New order added ")
         responseClient(res, 200, 0, 'New order added', result);
       }, 
       function(error) {
@@ -53,7 +52,6 @@ orderResources.get('/all', (req, res) => {
       responseClient(res, 200, 0, '', result)
     }
   }, function(error) {
-    console.log("Errors in itemDao.findAll: " + error)
     responseClient(res)
   })
 })

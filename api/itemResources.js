@@ -26,7 +26,6 @@ itemResources.get("/find", function(req, res) {
       return
     }
   }, function(error) {
-    console.log("Errors in itemDao.findAll: " + error)
     res.json({code: 700, msg:'Query error ' + error})
     return
   })
@@ -54,7 +53,6 @@ itemResources.get("/findByName", function(req, res) {
       return
     }
   }, function(error) {
-    console.log("Errors in itemDao.findAll: " + error)
     res.json({code: 700, msg:'Query error ' + error})
     return
   })
@@ -75,7 +73,6 @@ itemResources.get('/all', function(req, res) {
       return
     }
   }, function(error) {
-    console.log("Errors in itemDao.findAll: " + error)
     res.json({code: 700, msg:'Query error ' + error})
     return
   })
@@ -98,12 +95,10 @@ itemResources.post("/add", function(req, res) {
     price: price
   }).then(
     function(result) {
-      console.log("New item added ")
       res.json({code: 200, msg: 'New item added: ', data: result})
       return
     }, 
     function(error) {
-      console.log("Add new item failed: " + error)
       res.end({code: 700, msg:'Query error ' + error})
     }
   )

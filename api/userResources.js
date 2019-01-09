@@ -29,7 +29,6 @@ userResources.post('/currentUser', (req, res) => {
             }
         }
     ).catch(error => {
-        console.log(error)
         responseClient(res);
     })
 })
